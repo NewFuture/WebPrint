@@ -37,9 +37,10 @@ public partial class Default : System.Web.UI.Page
                 if (String.IsNullOrEmpty(Request.Form["password"]))
                 {
                     this.password.Text = Request.Form["password"].Trim();
-                }else
+                }
+                else
                 {
-                    this.password.Text = Session["pwd"].ToString() ;
+                    this.password.Text = Session["pwd"].ToString();
                 }
             }
             else
@@ -127,7 +128,6 @@ public partial class Default : System.Web.UI.Page
     /// <param name="e"></param>
     protected bool Upload(HttpPostedFile file, int copies, string range)
     {
-        //return true;
         string type = GetType(file.FileName);
         if (type == null)
         {
@@ -154,6 +154,7 @@ public partial class Default : System.Web.UI.Page
         string ext = System.IO.Path.GetExtension(filename).ToLower();
         return Array.IndexOf(AllowType, ext) == -1 ? null : ext;
     }
+
     private string GetRange(string range)
     {
         if (string.IsNullOrEmpty(range))
