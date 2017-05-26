@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 using System.Text.RegularExpressions;
 using System.Web;
 
-public partial class Default : System.Web.UI.Page
+public partial class Print : System.Web.UI.Page
 {
     /// <summary>
     /// 上传密码

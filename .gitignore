@@ -20,4 +20,6 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-bin/SumatraPDF-settings.txt
+bin/*
+!bin/SumatraPDF.exe
+
