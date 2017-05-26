@@ -31,24 +31,11 @@ public partial class Default : System.Web.UI.Page
         }
         else
         {
-            ///密码控件显示
-            if (this.needPwd)
+            if (!this.needPwd)
             {
-                if (String.IsNullOrEmpty(Request.Form["password"]))
-                {
-                    this.password.Text = Request.Form["password"].Trim();
-                }
-                else
-                {
-                    this.password.Text = Session["pwd"].ToString();
-                }
-            }
-            else
-            {
+                ///密码控件提示
                 this.Message.Text = "<strong>注意:未设置打印密码任何人可直接打印</strong>";
-                this.Controls.Remove(this.password);
             }
-
             this.Message.Text += Session["msg"];
             Session.Remove("msg");
             return;
@@ -65,14 +52,14 @@ public partial class Default : System.Web.UI.Page
         //验证密码
         if (this.needPwd)
         {
-            if (this.Password.Trim() != Request.Form["password"].Trim())
+            if (this.Password.Trim() != Request.Form["password"])
             {
                 return "打印密码无效";
             }
             else
             {
                 //暂时保存密码
-                Session["pwd"] = Request.Form["password"].Trim();
+                Session["pwd"] = Request.Form["password"];
             }
         }
 

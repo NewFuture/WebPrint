@@ -26,8 +26,7 @@
                     </ul>
                 </div>
                 <div class="warn">仅PDF支持<code>"选页"</code>设置,WORD可能存在排版兼容问题</div>
-                <div id="messages">
-                    <asp:Label ID="Message" runat="server"></asp:Label></div>
+                <div id="messages"><asp:Label ID="Message" runat="server"></asp:Label></div>
             </div>
             
             <form id="upload" method="POST" enctype="multipart/form-data">
@@ -38,7 +37,13 @@
                     <input type="file" id="files" name="files[]" multiple="multiple" required="required" accept=".pdf,.doc,.docx,.rtf,.txt,image/*" />
                 </div>
                 <div class="agileinfo inputbox">
-                    <asp:TextBox runat="server" TextMode="Password" name="password" ID="password" placeholder="打印密码" required="required"></asp:TextBox>
+                    <%
+                        if (needPwd)
+                        {
+                            string pwd =String.IsNullOrEmpty(Request.Form["password"])?(String)Session["pwd"]:Request.Form["password"].Trim();
+                            Response.Write("<input type='password' name='password' ID='password' placeholder='打印密码' required='required' value='"+pwd+"'/>");
+                        }
+                      %>
                 </div>
                 <div class="agileinfo inputbox" id="copies">
                     <input name="copies" type="number" value="1" placeholder="设置份数" required />
