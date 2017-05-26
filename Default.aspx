@@ -34,7 +34,7 @@
                     <div id="filedrag">
                         <span class="uploadtip">点击上传文件<br/>或者拖拽至此<br/>支持多个文件</span>
                     </div>
-                    <input type="file" id="files" name="files[]" multiple="multiple" required="required" accept=".pdf,.doc,.docx,.rtf,.txt,image/*" />
+                    <input type="file" id="files" name="files[]" multiple="multiple" required="required" accept=".pdf,.doc,.docx,.rtf,.txt,image/jpg,image/tiff,image/png"/>
                 </div>
                 <div class="agileinfo inputbox">
                     <%

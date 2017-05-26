@@ -27,7 +27,15 @@ public partial class Print : System.Web.UI.Page
         {
             //POST 上传
             Session["msg"] = this.OnPost();
-            See_Other(Request.UrlReferrer.ToString());
+            var url = Request.UrlReferrer;
+            if (url == null)
+            {
+                See_Other(Request.RawUrl);
+            }
+            else
+            {
+                See_Other(url.ToString());
+            }
         }
         else
         {
