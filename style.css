@@ -187,18 +187,24 @@ input[type="submit"] {
     margin-left: 23%;
 }
 
-footer p {
+footer {
     text-align: center;
     color: #fff;
     margin-bottom: 20px;
     font-size: 14px;
+    font-family: sans-serif;
 }
 
-    footer p a {
-        color: #fff;
+    footer strong {
+        font-size: 1.4em;
     }
 
-        footer p a:hover {
+    footer a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+        footer a:hover {
             text-decoration: underline;
         }
 

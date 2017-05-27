@@ -50,3 +50,7 @@ Windwos 系统包含IIS功能,但默认关闭，需要手动打开。
 * [x] 份数设置
 * [x] 页码设置(pdf)
 * [x] 多文件上传
+
+## LICENSE
+
+Apache2.0 LICENSE 并保留或添加源码链接`https://github.com/NewFuture/WebPrint`
