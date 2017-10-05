@@ -41,13 +41,11 @@
                     <input type="file" id="files" name="files[]" multiple="multiple" required="required" accept=".pdf,.doc,.docx,.rtf,.txt,image/jpg,image/tiff,image/png" />
                 </div>
                 <div class="agileinfo inputbox">
-                    <%
-                        if (needPwd)
-                        {
-                            string pwd =String.IsNullOrEmpty(Request.Form["password"])?(String)Session["pwd"]:Request.Form["password"].Trim();
-                            Response.Write("<input type='password' name='password' ID='password' placeholder='打印密码' required='required' value='"+pwd+"'/>");
-                        }
+                    <% if (needPwd) {
+                     string pwd =String.IsNullOrEmpty(Request.Form["password"])?(String)Session["pwd"]:Request.Form["password"].Trim();
                     %>
+                    <input type='password' name='password' id='password' onfocus="type='text'" onblur="type='password'" placeholder='打印密码' required='required' value='<%=pwd%>' />
+                    <% } %>
                 </div>
                 <div class="agileinfo inputbox" id="copies">
                     <input name="copies" type="number" value="1" title="份数" placeholder="设置份数" required />
