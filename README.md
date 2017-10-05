@@ -6,9 +6,10 @@ Windows 网页共享打印机
 
 ## 使用方法
 
-### I. 开启IIS 和 ASP
-如果已经开启可跳过。
-Windwos 系统包含IIS功能,但默认关闭，需要手动打开。
+### I. 开启IIS 和 ASP支持
+如果*已经开启* 或者 *windows server* 可**跳过**此步骤 。
+
+Windows 系统包含IIS功能,但默认关闭，需要手动打开。
 
 可以参考<http://jingyan.baidu.com/article/48206aeaaacd51216ad6b318.html>
 
@@ -50,6 +51,10 @@ Windwos 系统包含IIS功能,但默认关闭，需要手动打开。
 * [x] 份数设置
 * [x] 页码设置(pdf)
 * [x] 多文件上传
+
+## 截图
+
+![截图](file/_screenshot.png)
 
 ## LICENSE
 
