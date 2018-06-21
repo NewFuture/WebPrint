@@ -19,7 +19,11 @@ Windows 系统包含IIS功能,但默认关闭，需要手动打开。
 >
   1. 搜索 `Windows 功能`,或者打开控制面板
   2. 点击 `启用或者关闭Windows功能` 
-  3. 勾选`Internet Information Services`(Internet信息服务) 和 子目录下 `ASP.NET 4.x`
+  3. 勾选`Internet Information Services`(Internet信息服务) 和
+	* 确保勾选子目录 `万维网服务`>`应用程序和开发功能`>`ASP.NET 4.x`(不同系统版本可能有区别)
+	* 确保勾选子目录 `万维网服务`>`常见HTTP功能`>`静态内容``默认文档`
+	* 确保勾选子目录 `万维网服务`>`常见HTTP功能`>`静态内容``默认文档`
+	* 确保勾选子目录下 `万维网服务`>`web管理工具`
   4. 点击确定,等待开启
 >
 

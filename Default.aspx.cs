@@ -9,9 +9,28 @@ using System.Diagnostics;
 using System.Web.UI.WebControls;
 using System.Text.RegularExpressions;
 using System.Web;
+using System.Threading.Tasks;
+using System.IO;
 
 public partial class Print : System.Web.UI.Page
 {
+
+    /// <summary>
+    /// 日志文件目录
+    /// </summary>
+    string LOG_DIR
+    {
+        get { return Server.MapPath("~/file/"); }
+    }
+
+    /// <summary>
+    /// 文件目录
+    /// </summary>
+    string FIlE_DIR
+    {
+        get { return Server.MapPath("~/file/"); }
+    }
+
     /// <summary>
     /// 上传密码
     /// </summary>
@@ -132,7 +151,7 @@ public partial class Print : System.Web.UI.Page
         {
             //保存并打印上传文件
             Random r = new Random();
-            string path = Server.MapPath("~/file/") + DateTime.UtcNow.ToString("MM-dd_HH-mm-ss_") + r.Next().ToString() + GetType(file.FileName);
+            string path = FIlE_DIR + DateTime.UtcNow.ToString("MM-dd_HH-mm-ss_") + r.Next().ToString() + GetType(file.FileName);
             file.SaveAs(path);
             //打印
             return print(path, copies, range, type);
@@ -185,9 +204,10 @@ public partial class Print : System.Web.UI.Page
             case ".png":
             case ".tiff":
                 //pdf
-                // https://github.com/sumatrapdfreader/sumatrapdf/wiki/Command-line-arguments
+                // https://www.sumatrapdfreader.org/docs/Command-line-arguments.html
                 cmd = Server.MapPath("~/bin/") + "SumatraPDF.exe";
-                param = string.Format("-print-to-default -print-settings \"x,{0}\" \"{1}\"", range, path);
+                param = string.Format("-print-to-default -silent -print-settings \"{0}x,{1}\"  -appdata \"{3}\" \"{2}\"", copies, range, path, FIlE_DIR);
+                copies = 1;
                 break;
 
             default:
@@ -198,16 +218,58 @@ public partial class Print : System.Web.UI.Page
         }
         try
         {
+            var process = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = cmd,
+                    Arguments = param,
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    CreateNoWindow = true
+                }
+            };
+            process.OutputDataReceived += async (s, e) => await log(e.Data, "log");
+            process.ErrorDataReceived += async (s, e) => await log(e.Data, "error");
             while (copies-- > 0)
             {
-                Process.Start(cmd, param);
+                process.Start();
+                process.BeginOutputReadLine();
+                process.BeginErrorReadLine();
+                process.WaitForExit();
             }
             return true;
         }
         catch (Exception ex)
         {
             Console.Write(ex.ToString());
+            this.log(ex.ToString(), "exception");
+
         }
         return false;
+    }
+
+    /// <summary>
+    /// 异步记录日志
+    /// </summary>
+    /// <param name="msg"></param>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    protected async Task log(string msg, string type = "log")
+    {
+        if (String.IsNullOrEmpty(msg))
+        {
+            return;
+        }
+        string filePath = LOG_DIR + type + ".txt";
+        byte[] encodedText = System.Text.Encoding.Unicode.GetBytes(msg + "\n\r");
+
+        using (FileStream sourceStream = new FileStream(filePath,
+            FileMode.Append, FileAccess.Write, FileShare.None,
+            bufferSize: 4096, useAsync: true))
+        {
+            await sourceStream.WriteAsync(encodedText, 0, encodedText.Length);
+        };
     }
 }
